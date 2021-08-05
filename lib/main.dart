@@ -1,4 +1,6 @@
-import 'package:bismillah1/home_screen/home_screen.dart';
+// import 'package:bismillah1/home_screen/home_screen.dart';
+import 'package:bismillah1/home_screen/home_screen2.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +17,33 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: TestApi(),
+      home: Test2(),
+    );
+  }
+}
+
+class Test2 extends StatelessWidget {
+  const Test2({Key? key}) : super(key: key);
+
+  void getAnime() async {
+    try {
+      Response<Map> res =
+          await Dio().get("https://api.jikan.moe/v3/top/anime/1/airing");
+      List? resBody = res.data!['top'];
+      print(resBody!.length);
+      print(resBody[1]['image_url']);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    getAnime();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Hello Cok2'),
+      ),
     );
   }
 }
@@ -80,16 +108,4 @@ class Test extends StatelessWidget {
   }
 }
 
-class TestApi extends StatefulWidget {
-  const TestApi({Key? key}) : super(key: key);
-
-  @override
-  _TestApiState createState() => _TestApiState();
-}
-
-class _TestApiState extends State<TestApi> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
-  }
-}
+class DataAnime {}
